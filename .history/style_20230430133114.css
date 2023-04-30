@@ -32,10 +32,6 @@ h2 {
 	font-family: var(--primary-font);
 }
 
-h4 {
-	font-family: var(--primary-font);
-}
-
 p {
 	font-size: var(--font-size-body);
 	font-weight: var(--font-weight-general);
@@ -198,13 +194,11 @@ body {
 .categories__section{
 	display: flex;
 	flex-direction: column;
-	align-items: left;
+	align-items: center;
 	justify-content: center;
-	margin-top: 20rem;
 }
 .topics_header{
 	color: var(--white);
-	margin-left: 7.6rem;
 }
 
 .categories_container{
@@ -214,7 +208,7 @@ body {
 	gap: 1.5rem;
 	align-items: center;
 	justify-content: center;
-	padding-top: 5rem;
+	padding-top: 10rem;
 }
 
 .topic_button1{
@@ -262,43 +256,4 @@ body {
 	border-width: .5rem;
 	text-transform: uppercase;
 	padding: 2rem;
-}
-
-.bottom_right_sphere{
-	position: absolute;
-	width: 40rem;
-	left: 54.80rem;
-	top: 70rem;
-	z-index: -1;
-}
-
-
-
-/** Footer **/
-
-.footer_container{
-	height: 17rem;
-	background: var(--black);
-	opacity:50%;
-	padding: 5rem 10rem;
-	backdrop-filter: blur(35px);
-	display: flex;
-	gap: 10rem;
-}
-.text_container{
-	display: flex;
-    flex-direction: column;
-    /* align-items: stretch; */
-    /* padding-bottom: 8rem; */
-    justify-content: end;
-}
-.names_container{
- color: var(--white);
- display: flex;
- justify-content: space-between;
-}
-
-.rights_reserved{
-	color: var(--white);
-	font-size:8px;
 }
