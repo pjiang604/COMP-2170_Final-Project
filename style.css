@@ -153,6 +153,7 @@ body {
 	width: 40rem;
 	padding-left: 2.5rem;
 	padding-top: 28rem;
+	font-family: var(--secondary-font);
 }
 
 .take__quiz_button {
@@ -307,3 +308,6 @@ body {
     height:132px;
     object-fit:contain;
 }
+
+
+/** Timer **/
