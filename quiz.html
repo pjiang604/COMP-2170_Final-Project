@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,8 @@
     <link rel="stylesheet" href="style.css">
     <title>Quiz Page</title>
 </head>
-<body>
 
+<body>
     <div class="container">
         <div class="graphic__left">
             <img class="bottom__left_sphere" src="/Assets/bg_graphics/bottom_left_sphere_group.svg" alt="">
@@ -19,8 +20,13 @@
             <div class="left__container_bottom"></div>
         </div>
         <div class="quiz__container">
+            <div class="timer_container">
+                <div id="timer">00:00</div>
+                <button onClick="pause()">Pause Time</button>
+            </div>
             <div class="left__content">
-
+                <div id="question_list">
+                </div>
             </div>
             <div class="right__content">
                 <div class="graphics">
@@ -51,8 +57,39 @@
     </div>
 
     <script>
- 
+        const xhr = new XMLHttpRequest();
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        xhr.open('GET', 'https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&category=' + id);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                const questions = response.results;
+                console.log(questions);
+                const questionList = document.getElementById('question_list');
+                for (let i = 0; i < questions.length; i++) {
+                    const question = questions[i];
+                    const li = document.createElement('li');
+                    li.textContent = question.question;
+                    const choices = document.createElement('ul');
+                    for (let j = 0; j < question.incorrect_answers.length; j++) {
+                        const choice = document.createElement('li');
+                        choice.textContent = question.incorrect_answers[j];
+                        choices.appendChild(choice);
+                    }
+                    const correctChoice = document.createElement('li');
+                    correctChoice.textContent = question.correct_answer;
+                    choices.appendChild(correctChoice);
+                    li.appendChild(choices);
+                    questionList.appendChild(li);
+                }
+            } else {
+                console.error('Request failed.  Returned status of ' + xhr.status);
+            }
+        };
+        xhr.send();
     </script>
 
 </body>
+
 </html>

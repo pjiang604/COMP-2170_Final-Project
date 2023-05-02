@@ -87,6 +87,7 @@
                     categoryButton.addEventListener("click", () => {
                         // handle button click event here
                         console.log(`Clicked category ${category.name} with ID ${category.id}`);
+                        window.location.href = './quiz.html?id=' + `${category.id}`;
                     });
 
                     categoryList.appendChild(categoryButton);
