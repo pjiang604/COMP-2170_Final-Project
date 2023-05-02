@@ -10,20 +10,36 @@
 </head>
 
 <body>
+
+    <div class="quiz-container " id="quiz-container">
+        <div class="question-container">
+            <p id="question-number"></p>
+            <div class="choices-container">
+                <div class="choices">
+                    <p id="question"></p>
+                </div>
+                <div class="choices">
+                    <p id="choices"></p>
+                </div>
+            </div>
+            <p id="result"></p>
+            <p id="quiz"></p>
+        </div>
+    </div>
+
     <div class="container">
+        <p id="timer"></p>
+
         <div class="graphic__left">
             <img class="bottom__left_sphere" src="/Assets/bg_graphics/bottom_left_sphere_group.svg" alt="">
             <img class="left__shooting_star" src="/Assets/bg_graphics/shooting_star_left.svg" alt="">
         </div>
-        <div class="left__containers">
-            <div class="left__container_top"></div>
-            <div class="left__container_bottom"></div>
-        </div>
-        <div class="quiz__container">
-            <div class="timer_container">
+
+        <div class="quiz-page__container">
+            <!--<div class="timer_container">
                 <div id="timer">00:00</div>
                 <button onClick="pause()">Pause Time</button>
-            </div>
+            </div>-->
             <div class="left__content">
                 <div id="question_list">
                 </div>
@@ -34,21 +50,11 @@
                     <img class="top__right_sphere" src="/Assets/bg_graphics/top_right_sphere_group.svg" alt="">
                     <img class="star__right" src="/Assets/bg_graphics/shooting_star_right.svg" alt="">
                 </div>
-                <div class="quiz__button">
-                    <a href="#">
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 
-    </div>
-
     <div class="categories__section">
-
-
-
-
         <div class="graphics_bottom">
             <img class="shooting__star_top" src="/Assets/bg_graphics/shooting_star_alt.svg" alt="">
             <img class="bottom_right_sphere" src="/Assets/bg_graphics/bottom_right_sphere_group.svg" alt="">
@@ -56,38 +62,143 @@
         </div>
     </div>
 
+
+
+
     <script>
-        const xhr = new XMLHttpRequest();
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-        xhr.open('GET', 'https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&category=' + id);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                const questions = response.results;
-                console.log(questions);
-                const questionList = document.getElementById('question_list');
-                for (let i = 0; i < questions.length; i++) {
-                    const question = questions[i];
-                    const li = document.createElement('li');
-                    li.textContent = question.question;
-                    const choices = document.createElement('ul');
-                    for (let j = 0; j < question.incorrect_answers.length; j++) {
-                        const choice = document.createElement('li');
-                        choice.textContent = question.incorrect_answers[j];
-                        choices.appendChild(choice);
-                    }
-                    const correctChoice = document.createElement('li');
-                    correctChoice.textContent = question.correct_answer;
-                    choices.appendChild(correctChoice);
-                    li.appendChild(choices);
-                    questionList.appendChild(li);
-                }
-            } else {
-                console.error('Request failed.  Returned status of ' + xhr.status);
+        /*  const xhr = new XMLHttpRequest();
+          const urlParams = new URLSearchParams(window.location.search);
+          const id = urlParams.get('id');
+          xhr.open('GET', 'https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&category=' + id);
+          xhr.onload = function () {
+              if (xhr.status === 200) {
+                  const response = JSON.parse(xhr.responseText);
+                  const questions = response.results;
+                  console.log(questions);
+                  const questionList = document.getElementById('question_list');
+                  for (let i = 0; i < questions.length; i++) {
+                      const question = questions[i];
+                      const li = document.createElement('li');
+                      li.textContent = question.question;
+                      const choices = document.createElement('ul');
+                      for (let j = 0; j < question.incorrect_answers.length; j++) {
+                          const choice = document.createElement('li');
+                          choice.textContent = question.incorrect_answers[j];
+                          choices.appendChild(choice);
+                      }
+                      const correctChoice = document.createElement('li');
+                      correctChoice.textContent = question.correct_answer;
+                      choices.appendChild(correctChoice);
+                      li.appendChild(choices);
+                      questionList.appendChild(li);
+                  }
+              } else {
+                  console.error('Request failed.  Returned status of ' + xhr.status);
+              }
+          };
+          xhr.send();*/
+
+        //TEST
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timeLeft = 300; // 5 minutes in seconds
+        let timerId;
+        const quizData = [];
+
+        async function getQuizData() {
+            const response = await fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&category=');
+            const data = await response.json();
+            return data.results;
+        }
+
+        function renderQuestion() {
+            if (currentQuestionIndex >= quizData.length || timeLeft <= 0) {
+                // Quiz is finished
+                clearInterval(timerId); // Stop the timer
+                displayResult();
+                return;
             }
-        };
-        xhr.send();
+
+            const questionElement = document.getElementById('question');
+            const choicesElement = document.getElementById('choices');
+            const resultElement = document.getElementById('result');
+            const questionNumberElement = document.getElementById('question-number');
+            const timerElement = document.getElementById('timer');
+
+            // Clear previous question and choices
+            questionElement.innerHTML = '';
+            choicesElement.innerHTML = '';
+            resultElement.innerHTML = '';
+
+            // Render current question number
+            const questionNumber = currentQuestionIndex + 1;
+            questionNumberElement.innerHTML = `Question #${questionNumber}`;
+
+            // Render current question
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionElement.innerHTML = currentQuestion.question;
+
+            // Render answer choices
+            currentQuestion.choices.forEach(choice => {
+                const choiceElement = document.createElement('li');
+                choiceElement.innerHTML = choice;
+                choiceElement.addEventListener('click', () => {
+                    if (choice === currentQuestion.correct_answer) {
+                        score++;
+                        resultElement.innerHTML = 'Correct!';
+                    } else {
+                        resultElement.innerHTML = `Sorry, the correct answer is: ${currentQuestion.correct_answer}`;
+                    }
+                    currentQuestionIndex++;
+                    renderQuestion();
+                });
+                choicesElement.appendChild(choiceElement);
+            });
+
+            // Update timer
+            timerElement.innerHTML = `Time left: ${formatTime(timeLeft)}`;
+        }
+
+        function displayResult() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = `
+    <h2>Quiz finished!</h2>
+    <p>Your final score is ${score} out of ${quizData.length}.</p>
+    <button onclick="location.reload()">Play again</button>`;
+        }
+
+        function startTimer() {
+            timerId = setInterval(() => {
+                timeLeft--;
+                renderQuestion();
+            }, 1000);
+        }
+
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            const seconds = time % 60;
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        async function startQuiz() {
+            const data = await getQuizData();
+            quizData.push(...data.map(question => {
+                const choices = [...question.incorrect_answers, question.correct_answer];
+                return {
+                    question: question.question,
+                    choices: choices.sort(() => Math.random() - 0.5),
+                    correct_answer: question.correct_answer
+                };
+            }));
+            startTimer();
+            renderQuestion();
+        }
+
+        startQuiz();
+
+
+
     </script>
 
 </body>
