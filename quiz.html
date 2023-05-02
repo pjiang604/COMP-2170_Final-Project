@@ -28,7 +28,9 @@
     </div>
 
     <div class="container">
+        <div class="timer_container">
         <p id="timer"></p>
+    </div>
 
         <div class="graphic__left">
             <img class="bottom__left_sphere" src="/Assets/bg_graphics/bottom_left_sphere_group.svg" alt="">
@@ -36,10 +38,6 @@
         </div>
 
         <div class="quiz-page__container">
-            <!--<div class="timer_container">
-                <div id="timer">00:00</div>
-                <button onClick="pause()">Pause Time</button>
-            </div>-->
             <div class="left__content">
                 <div id="question_list">
                 </div>
@@ -66,38 +64,6 @@
 
 
     <script>
-        /*  const xhr = new XMLHttpRequest();
-          const urlParams = new URLSearchParams(window.location.search);
-          const id = urlParams.get('id');
-          xhr.open('GET', 'https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&category=' + id);
-          xhr.onload = function () {
-              if (xhr.status === 200) {
-                  const response = JSON.parse(xhr.responseText);
-                  const questions = response.results;
-                  console.log(questions);
-                  const questionList = document.getElementById('question_list');
-                  for (let i = 0; i < questions.length; i++) {
-                      const question = questions[i];
-                      const li = document.createElement('li');
-                      li.textContent = question.question;
-                      const choices = document.createElement('ul');
-                      for (let j = 0; j < question.incorrect_answers.length; j++) {
-                          const choice = document.createElement('li');
-                          choice.textContent = question.incorrect_answers[j];
-                          choices.appendChild(choice);
-                      }
-                      const correctChoice = document.createElement('li');
-                      correctChoice.textContent = question.correct_answer;
-                      choices.appendChild(correctChoice);
-                      li.appendChild(choices);
-                      questionList.appendChild(li);
-                  }
-              } else {
-                  console.error('Request failed.  Returned status of ' + xhr.status);
-              }
-          };
-          xhr.send();*/
-
         //TEST
 
         let currentQuestionIndex = 0;
@@ -150,7 +116,7 @@
                         score++;
                         resultElement.innerHTML = 'Correct!';
                     } else {
-                        resultElement.innerHTML = `Sorry, the correct answer is: ${currentQuestion.correct_answer}`;
+                        resultElement.innerHTML = `The correct answer is: ${currentQuestion.correct_answer}`;
                     }
                     currentQuestionIndex++;
                     renderQuestion();
@@ -204,5 +170,6 @@
     </script>
 
 </body>
+
 
 </html>
