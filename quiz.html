@@ -11,8 +11,21 @@
 
 <body>
 
+    <div class="category">
+        <p id="category"></p>
+        <p id="difficulty"></p>
+    </div>
+
+
+
     <div class="quiz-container " id="quiz-container">
+        <div class="timer_container">
+            <p id="timer"></p>
+        </div>
         <div class="question-container">
+            <div class="timer_container">
+                <p id="timer"></p>
+            </div>
             <p id="question-number"></p>
             <div class="choices-container">
                 <div class="choices">
@@ -28,9 +41,7 @@
     </div>
 
     <div class="container">
-        <div class="timer_container">
-        <p id="timer"></p>
-    </div>
+
 
         <div class="graphic__left">
             <img class="bottom__left_sphere" src="/Assets/bg_graphics/bottom_left_sphere_group.svg" alt="">
@@ -60,21 +71,17 @@
         </div>
     </div>
 
-
-
-
     <script>
-        //TEST
-
         let currentQuestionIndex = 0;
         let score = 0;
         let timeLeft = 300; // 5 minutes in seconds
         let timerId;
         const quizData = [];
+        const userAnswers = [];
 
         async function getQuizData() {
             const urlParams = new URLSearchParams(window.location.search);
-          const id = urlParams.get('id');
+            const id = urlParams.get('id');
             const response = await fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&category=' + id);
             const data = await response.json();
             return data.results;
@@ -93,6 +100,8 @@
             const resultElement = document.getElementById('result');
             const questionNumberElement = document.getElementById('question-number');
             const timerElement = document.getElementById('timer');
+            const categoryElement = document.getElementById('category');
+            const difficultyElement = document.getElementById('difficulty');
 
             // Clear previous question and choices
             questionElement.innerHTML = '';
@@ -103,8 +112,12 @@
             const questionNumber = currentQuestionIndex + 1;
             questionNumberElement.innerHTML = `Question #${questionNumber}`;
 
-            // Render current question
+            // Render category name
             const currentQuestion = quizData[currentQuestionIndex];
+            categoryElement.innerHTML = `${currentQuestion.category}`;
+            difficultyElement.innerHTML = `Difficulty: ${currentQuestion.difficulty}`;
+
+            // Render current question
             questionElement.innerHTML = currentQuestion.question;
 
             // Render answer choices
@@ -114,8 +127,18 @@
                 choiceElement.addEventListener('click', () => {
                     if (choice === currentQuestion.correct_answer) {
                         score++;
+                        userAnswers.push({
+                            question: currentQuestion.question,
+                            answer: choice,
+                            correct: true
+                        });
                         resultElement.innerHTML = 'Correct!';
                     } else {
+                        userAnswers.push({
+                            question: currentQuestion.question,
+                            answer: choice,
+                            correct: false
+                        });
                         resultElement.innerHTML = `The correct answer is: ${currentQuestion.correct_answer}`;
                     }
                     currentQuestionIndex++;
@@ -131,10 +154,34 @@
         function displayResult() {
             const quizContainer = document.getElementById('quiz-container');
             quizContainer.innerHTML = `
-    <h2>Quiz finished!</h2>
-    <p>Your final score is ${score} out of ${quizData.length}.</p>
-    <button onclick="location.reload()">Play again</button>`;
+        <div class="results-container">
+            <div class="results-header">
+                <h2>Quiz finished!</h2>
+                <button class="play-button" onclick="location.reload()">Play again</button>
+            </div>
+            <p>Your final score is ${score} out of ${quizData.length}.</p>
+            <div class="results-description">
+                <h3>Question Results:</h3>
+                <ul id="question-results"></ul>
+            </div>
+        </div>`;
+
+            const questionResultsElement = document.getElementById('question-results');
+            userAnswers.forEach((answer, index) => {
+                const resultItem = document.createElement('li');
+                const answerStatus = answer.correct ? 'Correct!' : 'Incorrect';
+                const correctAnswer = answer.correct ? '' : `The correct answer is: ${quizData[index].correct_answer}`;
+                resultItem.innerHTML = `
+            <strong>${index + 1}. ${answer.question}</strong><br>
+            <div class="answer-result">
+                <p>Your answer: ${answer.answer}</p>
+                <p>${answerStatus}</p>
+            </div>
+            <p>${correctAnswer}</p>`;
+                questionResultsElement.appendChild(resultItem);
+            });
         }
+
 
         function startTimer() {
             timerId = setInterval(() => {
@@ -151,21 +198,25 @@
 
         async function startQuiz() {
             const data = await getQuizData();
+            const firstQuestion = data[0];
+            const category = firstQuestion.category;
+            const difficulty = firstQuestion.difficulty;
             quizData.push(...data.map(question => {
                 const choices = [...question.incorrect_answers, question.correct_answer];
                 return {
                     question: question.question,
                     choices: choices.sort(() => Math.random() - 0.5),
-                    correct_answer: question.correct_answer
+                    correct_answer: question.correct_answer,
+                    category: category,
+                    difficulty: difficulty
                 };
             }));
             startTimer();
             renderQuestion();
         }
 
+
         startQuiz();
-
-
 
     </script>
 
