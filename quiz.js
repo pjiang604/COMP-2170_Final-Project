@@ -5,7 +5,7 @@ let timerId;
 const quizData = [];
 const userAnswers = [];
 
-async function getQuizData() {
+async function getQuizData(categoryID, difficulty) {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const response = await fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple&category=' + id);
@@ -108,7 +108,6 @@ function displayResult() {
     });
 }
 
-
 function startTimer() {
     timerId = setInterval(() => {
         timeLeft--;
@@ -123,10 +122,12 @@ function formatTime(time) {
 }
 
 async function startQuiz() {
-    const data = await getQuizData();
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryID = urlParams.get('id');
+    const difficulty = urlParams.get('difficulty');
+    const data = await getQuizData(categoryID, difficulty);
     const firstQuestion = data[0];
     const category = firstQuestion.category;
-    const difficulty = firstQuestion.difficulty;
     quizData.push(...data.map(question => {
         const choices = [...question.incorrect_answers, question.correct_answer];
         return {
@@ -137,9 +138,11 @@ async function startQuiz() {
             difficulty: difficulty
         };
     }));
+    const selectedDifficultyElement = document.getElementById('selected-difficulty');
+    selectedDifficultyElement.innerHTML = `Selected Difficulty: ${difficulty}`;
+
     startTimer();
     renderQuestion();
 }
-
 
 startQuiz();
