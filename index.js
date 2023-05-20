@@ -5,30 +5,21 @@ fetch(apiUrl)
   .then((data) => {
     const categories = data.trivia_categories;
     const categoryList = document.getElementById("category-list");
-    let buttonCount = 0;
+    const defaultOption = document.createElement("option");
+    defaultOption.text = "Select a category";
+    categoryList.add(defaultOption);
 
     categories.forEach((category) => {
-      const categoryButton = document.createElement("button");
-      categoryButton.innerHTML = category.name;
-      categoryButton.classList.add("topic_button");
-      categoryButton.setAttribute("data-id", category.id);
-      categoryButton.addEventListener("click", () => {
-        console.log(`Clicked category ${category.name} with ID ${category.id}`);
-        const categoryID = category.id;
+      const option = document.createElement("option");
+      option.text = category.name;
+      option.value = category.id;
+      categoryList.add(option);
+    });
+
+    categoryList.addEventListener("change", (event) => {
+      const categoryID = event.target.value;
+      if (categoryID !=="") {
         createDifficultyButtons(categoryID);
-      });
-
-      categoryList.appendChild(categoryButton);
-      buttonCount++;
-
-      if (buttonCount % 4 === 1) {
-        categoryButton.classList.add("topic_button1");
-      } else if (buttonCount % 4 === 2) {
-        categoryButton.classList.add("topic_button2");
-      } else if (buttonCount % 4 === 3) {
-        categoryButton.classList.add("topic_button3");
-      } else {
-        categoryButton.classList.add("topic_button4");
       }
     });
   })
