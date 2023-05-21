@@ -125,13 +125,14 @@ function displayResult() {
   quizContainer.innerHTML = `
     <div class="results-container">
       <div class="results-header">
-        <h2>Quiz finished!</h2>
-        <button class="play-button" onclick="location.reload()">Play again</button>
-        <button class="index-button" onclick="window.location.href = 'index.html'">Home</button>
+        <h2>Your Results</h2>
+        <p>You Scored ${score} out of ${quizData.length}.</p>
+          <div class="results-buttons">
+          <button class="play-button" onclick="location.reload()"><img src="/Assets/buttons/replay.svg"/> Play again</button>
+          <button class="index-button" onclick="window.location.href = 'index.html'">Home</button>
+          </div>
       </div>
-      <p>Your final score is ${score} out of ${quizData.length}.</p>
       <div class="results-description">
-        <h3>Question Results:</h3>
         <ul id="question-results"></ul>
       </div>
     </div>
