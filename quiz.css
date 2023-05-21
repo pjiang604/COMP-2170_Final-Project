@@ -8,17 +8,33 @@ body {
     margin: 20px;
 }
 
+#quiz-container {
+    align-items:center;
+}
+
 .quiz-container {
-    background-color: #f2f2f2;
+    background-color:rgba(0,0,0,0.4);
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    color:white;
+    text-transform:uppercase;
+    font-family:'Courier New', Courier, monospace;
+    width:60%;
+    margin:auto;
 }
 
 .question-container {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 10px;
+}
+
+#category, 
+#selected-difficulty {
+    font-family:'Courier New', Courier, monospace;
+    color:white;
+    text-transform:uppercase;
 }
 
 .choices-container {
@@ -58,3 +74,102 @@ body {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.video-background video {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+	opacity: .5;
+}
+
+.video-background::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.question-container {
+    display:flex;
+    justify-content:center;
+}
+
+
+/**--------------------- Footer ---------------------**/
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	min-height: 100px;
+	background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .footer_container {
+	display: flex;
+	align-items: center;
+	min-height: 11rem;
+	background: none;
+	padding: 2rem;
+  }
+  
+  .logo_container {
+	display: flex;
+	align-items: center;
+  }
+  
+  .text_container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+  }
+  
+  .names_container {
+	color: #fff;
+	display: flex;
+	gap: 1rem;
+	padding-bottom: 0.5rem;
+  }
+  
+  .hr {
+	width: 17%;
+	height: 1px;
+	background-color: var(--white);
+	margin: 0 auto;
+  }
+  
+  .rights {
+	margin-top: 0.2rem;
+	font-size: 10px;
+	display: flex;
+	justify-content: center;
+  }
+  
+  .rights_reserved {
+	color: #fff;
+	font-size: 8px;
+  }
+  
+  .brain_picker_logo {
+	max-width: 100%;
+	max-height: 100px;
+	object-fit: contain;
+  }
