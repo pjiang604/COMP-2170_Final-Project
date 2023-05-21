@@ -85,6 +85,56 @@ body {
 #category-list {
 	position: relative;
 	z-index: 1;
+	font-family:Arial, Helvetica, sans-serif;
+	border:none;
+	opacity:50%;
+	height:40px;
+	width:480px;
+	margin-top:2em;
+	border-radius:10px;
+	padding-left:1.5em;
+}
+
+.categories_container {
+	align-items:center;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	margin-top:25em;
+}
+
+.categories_title {
+	text-transform:uppercase;
+	font-family:Arial, Helvetica, sans-serif;
+	color:var(--white);
+	font-size:40px;
+}
+
+#difficulty-buttons-container {
+	display:flex;
+	justify-content:space-between;
+	width:400px;
+	align-items:center;
+	margin:auto;
+}
+
+#difficulty-buttons-container button {
+	text-transform:uppercase;
+	background-color:var(--black);
+	border:none;
+	border-radius:4px;
+	color:var(--white);
+	font-family:Arial, Helvetica, sans-serif;
+	height:32px;
+	max-width:200px;
+	width:100px;
+	margin-top:1em;
+}
+
+#difficulty-buttons-container button:hover {
+	cursor:pointer;
+	background-color:var(--white);
+	color:var(--black);
 }
 
 /**--------------------- Footer ---------------------**/
@@ -94,7 +144,7 @@ footer {
 	bottom: 0;
 	width: 100%;
 	min-height: 100px;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 0, 0, 0.4);
   }
   
   .footer_container {
@@ -150,4 +200,5 @@ footer {
 	max-height: 100px;
 	object-fit: contain;
   }
+
   
