@@ -1,83 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Brain Picker</title>
-    <script src="./index.js"></script>
-  </head>
 
-  <body>
-    <div class="video-background">
-      <video autoplay muted loop>
-        <source src="Assets/bg_graphics/home_bg.mp4" type="video/mp4" />
-      </video>
-      <div class="container">
-        </div>
-        <div class="quiz__container">
-          <div class="left__content">
-            <h1>BRAIN PICKER</h1>
-            <p>
-              Explore your knowledge with our engaging and thought-provoking
-              trivia questions covering various fascinating topics!
-            </p>
-          </div>
-          <div class="right__content">
-            <div class="quiz__button">
-              <a href="#">
-                <button class="take__quiz_button">TAKE OUR QUIZ</button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bottom__containers">
-        <div class="bottom__container_left">
-        </div>
-        <div class="bottom__container_right"></div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Brain Picker</title>
+  <script src="./index.js"></script>
+</head>
 
-      <div class="categories__section">
-        <div class="quiz_options">
-        </div>
-        <div class="categories_container">
-        <h1 class="categories_title">Choose Your Topic</h1>
-          <select id="category-list"></select>
-        </div>
+<body>
+  <div class="video-background">
+    <video autoplay muted loop>
+      <source src="Assets/bg_graphics/home_bg.mp4" type="video/mp4" />
+    </video>
+    <div class="container">
+    </div>
+  </div>
+  <div class="bottom__containers">
+    <div class="bottom__container_left">
+    </div>
+    <div class="bottom__container_right"></div>
+  </div>
 
-        <div id="difficulty-buttons-container"></div>
+  <div class="quiz__container">
+    <div class="left__content">
+      <h1>BRAIN PICKER . <img src="/Assets/bg_graphics/cloud.svg"/></h1>
+      <p class="tagline">
+        Explore your knowledge with our engaging and thought-provoking
+        trivia questions covering various fascinating topics!
+      </p>
+    </div>
+    <div class="right__content">
+      <div class="quiz__button">
+          <a href="#choose_topic" class="take__quiz_button">TAKE OUR QUIZ</a>
+          <img src="/Assets/bg_graphics/rightArrow.svg"/>
       </div>
     </div>
+  </div>
 
-    
-    <footer>
-      <div class="footer_container">
-        <div class="logo_container">
-          <img
-            class="brain_picker_logo"
-            src="./Assets/logo/brain_picker_logo.svg"
-            alt=""
-          />
-        </div>
+  <div class="categories__section">
+    <div class="quiz_options">
+    </div>
+    <div class="categories_container">
+      <h1 class="categories_title" id="choose_topic">Choose Your Topic</h1>
+      <select id="category-list"></select>
+      <div id="difficulty-buttons-container"></div>
+    </div>
 
-        <div class="text_container">
-          <div class="names_container">
-            <h4>GLENDA</h4>
-            <h4>PATRICIA</h4>
-            <h4>JIMMY</h4>
-            <h4>JULIET</h4>
-          </div>
 
-          <hr class="hr" />
-          <div class="rights_reserved">
-            <p class="rights">BRAINPICKER 2023 | ALL RIGHTS RESERVED</p>
-          </div>
-        
-        </div>
+  </div>
+  </div>
+
+</body>
+
+<footer>
+  <div class="footer_container">
+    <div class="logo_container">
+      <img class="brain_picker_logo" src="./Assets/logo/brain_picker_logo.svg" alt="" />
+    </div>
+
+    <div class="text_container">
+      <div class="names_container">
+        <h4>GLENDA</h4>
+        <h4>PATRICIA</h4>
+        <h4>JIMMY</h4>
+        <h4>JULIET</h4>
       </div>
-    </footer>
 
-  </body>
+      <hr class="hr" />
+      <div class="rights_reserved">
+        <p class="rights">BRAINPICKER 2023 | ALL RIGHTS RESERVED</p>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
 </html>

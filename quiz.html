@@ -2,70 +2,79 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="quiz.css">
-    <title>Quiz Page</title>
-    <script src="./quiz.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="quiz.css">
+  <title>Quiz Page</title>
+  <script src="./quiz.js"></script>
 </head>
 
 <body>
 
-    <div class="category">
-        <p id="category"></p>
-        <p id="selected-difficulty"></p>
+  <div class="category visible">
+    <div class="category_info">
+      <p id="category"></p>
+      <p id="selected-difficulty"></p>
     </div>
-    
-    <div class="quiz-container" id="quiz-container">
-        <div class="video-background">
-        <video autoplay muted loop>
-            <source src="Assets/bg_graphics/home_bg.mp4" type="video/mp4" />
-        </video>
-        </div>
+  </div>
+
+  <div class="video-background">
+    <video autoplay muted loop>
+      <source src="Assets/bg_graphics/home_bg.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <div class="quiz-container" id="quiz-container">
+    <div class="top__content">
+      <div class="left__content">
         <div class="timer-container">
-            <p id="timer"></p>
+          <p id="timer"></p>
         </div>
         <div class="question-container">
-            <p id="question-number"></p>
-            <p id="question"></p>
+          <p id="question-number"></p>
+          <p id="question"></p>
         </div>
+      </div>
+      <div class="right__content">
         <div class="choices-container">
-            <div class="choice">
-                <p id="choices"></p>
-            </div>
-            <p id="result"></p>
-            <p id="quiz"></p>
+          <div class="choice">
+            <p id="choices"></p>
+          </div>
         </div>
+      </div>
     </div>
-    <hr class="line">
+
+    <div class="bottom__content">
+      <p id="result"></p>
+      <p id="quiz"></p>
+    </div>
+
+  </div>
+  <hr class="line">
 </body>
 
 <footer>
-    <div class="footer_container">
-      <div class="logo_container">
-        <img
-          class="brain_picker_logo"
-          src="./Assets/logo/brain_picker_logo.svg"
-          alt=""
-        />
-      </div>
-
-      <div class="text_container">
-        <div class="names_container">
-          <h4>GLENDA</h4>
-          <h4>PATRICIA</h4>
-          <h4>JIMMY</h4>
-          <h4>JULIET</h4>
-        </div>
-
-        <hr class="hr" />
-        <div class="rights_reserved">
-          <p class="rights">BRAINPICKER 2023 | ALL RIGHTS RESERVED</p>
-        </div>
-      
-      </div>
+  <div class="footer_container">
+    <div class="logo_container">
+      <img class="brain_picker_logo" src="./Assets/logo/brain_picker_logo.svg" alt="" />
     </div>
-  </footer>
+
+    <div class="text_container">
+      <div class="names_container">
+        <h4>GLENDA</h4>
+        <h4>PATRICIA</h4>
+        <h4>JIMMY</h4>
+        <h4>JULIET</h4>
+      </div>
+
+      <hr class="hr" />
+      <div class="rights_reserved">
+        <p class="rights">BRAINPICKER 2023 | ALL RIGHTS RESERVED</p>
+      </div>
+
+    </div>
+  </div>
+</footer>
 
 </html>
